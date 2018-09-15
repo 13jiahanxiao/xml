@@ -52,7 +52,22 @@ namespace Xml
             WriteLine(employees1);
             WriteLine();
             employees1.Save("employees.xml");
+            /* XComment xd = new XDocument(
+                 new XDeclaration("1.0", "utf-8", "yes"),
+                 new XComment("This is comment"),
+                 new XProcessingInstruction("xm;-stylesheeet", @"href=""stories.css"));*/
+            XDocument cd = XDocument.Load("employees.xml");
+            XElement rr = cd.Element("Employees");
+            var xyz = from e in rr.Elements()
+                      where e.Name.ToString().Length == 5
+                      select e;
+            foreach(XElement x in xyz)
+            {
+                WriteLine(x.Name.ToString());
+            }
+            WriteLine();
             ReadKey();
         }
     }
 }
+
