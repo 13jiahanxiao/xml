@@ -16,12 +16,22 @@ namespace Xml
                 (
                     new XElement("Employees",
                         new XElement("Employee1",
+                            new XAttribute("sex","man"),
                             new XElement("Name", "Bob"),
                             new XElement("PhoneNumber", "12345-405")),
                         new XElement("Employee2",
+                            new XAttribute("sew","woman"),
                             new XElement("Name", "Sally"),
                             new XElement("PhoneNumber", "10213=405")))
                 );
+            XElement ro = employees1.Element("Employees");
+            XElement ro2 = ro.Element("Employee1");//注意嵌套调用
+            XAttribute sex = ro2.Attribute("sex");
+            WriteLine($"sex is {sex.Value}");
+            WriteLine();
+            //ro2.Attribute("sex").Remove();移除特性
+            //ro2.SetAttributeValue("sex", null);
+            //ro2.SetAttributeValue("新特性"，"值");可添加新特性
             XElement root = employees1.Element("Employees");
             IEnumerable<XElement> employees = root.Elements();
             foreach (XElement emp in employees)
@@ -40,6 +50,7 @@ namespace Xml
             rt.Add(new XElement("second",new XElement("second1")));
             rt.Add(new XElement("third"), new XElement("forth"));
             WriteLine(employees1);
+            WriteLine();
             employees1.Save("employees.xml");
             ReadKey();
         }
